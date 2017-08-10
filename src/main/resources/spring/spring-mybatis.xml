@@ -17,8 +17,4 @@
 		<property name="basePackage" value="org.com.cay.dao"></property>
 	</bean>
 	
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-
 </beans>
