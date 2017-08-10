@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.com.cay.dao.IUserMapper">
+	<resultMap type="user" id="userResultMap">
+		<id column="uid" property="uid"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="birthday" property="birthday"/>
+		<result column="salary" property="salary"/>
+		<association property="employee" javaType="employee">
+			<id column="eid" property="eid"/>
+			<result column="emp_name" property="empName"/>
+		</association>
+	</resultMap>
+	
+	<sql id="condition">
+		<where>
+			<if test="id != null and id != ''">
+				and u.uid = #{id}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="saveUser" parameterType="user">
+		insert into user(username, password,birthday,salary,eid) 
+		values(#{username},#{password}, #{birthday}, #{salary}, #{employee.eid})
+	</insert>
+	
+	<select id="list" resultMap="userResultMap" parameterType="java.lang.Integer">
+		SELECT
+			u.*, e.emp_name
+		FROM
+			USER u
+		LEFT JOIN employee e ON u.eid = e.eid
+	</select>
+	
+	<select id="getUser" resultMap="userResultMap" parameterType="integer">
+		SELECT
+			u.*, e.emp_name
+		FROM
+			USER u
+		LEFT JOIN employee e ON u.eid = e.eid
+		<include refid="condition"></include>
+	</select>
+</mapper>

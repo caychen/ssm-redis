@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.com.cay.dao.IEmployeeMapper">
+	<resultMap type="employee" id="employeeResultMap">
+		<id column="eid" property="eid"/>
+		<result column="emp_name" property="empName"/>
+	</resultMap>
+
+	<insert id="saveEmployee" parameterType="employee">
+		insert into employee values(null, #{empName})
+	</insert>
+	
+	<select id="list" resultMap="employeeResultMap">
+		SELECT
+			e.*
+		FROM employee e 
+	</select>
+</mapper>
