@@ -43,5 +43,6 @@
 	</aop:config>
 	
 	<import resource="classpath*:spring/spring-mybatis.xml"/>
+	<import resource="classpath*:spring/spring-redis.xml"/>
 	
 </beans>
